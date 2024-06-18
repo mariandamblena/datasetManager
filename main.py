@@ -56,13 +56,8 @@ if uploaded_file is not None:
     fig_plotly = px.line(df_filtered, x=x_axis, y=y_axes, title="Variables vs Tiempo", labels={"value": "Valor", "variable": "Variable"})
     st.plotly_chart(fig_plotly)
     
-    # Mostrar estadísticas para cada columna Y seleccionada
+    # Mostrar estadísticas para cada columna Y seleccionada en una tabla
     for y_axis in y_axes:
-        st.write(f"Estadísticas de {y_axis}:")
-        st.write(f"Promedio: {df_filtered[y_axis].mean()}")
-        st.write(f"Mediana: {df_filtered[y_axis].median()}")
-        st.write(f"Desviación estándar: {df_filtered[y_axis].std()}")
-        st.write(f"Máximo: {df_filtered[y_axis].max()}")
-        st.write(f"Mínimo: {df_filtered[y_axis].min()}")
-
-
+        st.write(f"### Estadísticas de {y_axis}:")
+        stats_df = df_filtered[[y_axis]].describe().transpose()
+        st.write(stats_df)
